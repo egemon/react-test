@@ -4,7 +4,7 @@
 import React from 'react';
 import Player from '../Player/Player';
 import Metadata from '../Metadata/Metadata';
-import store from '../store';
+import store from '../Store/store';
 
 class Protocol extends React.Component {
 	constructor (){

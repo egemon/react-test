@@ -2,7 +2,7 @@
  * Created by ilukianov on 22.09.16.
  */
 import React from 'react';
-import store from '../store';
+import store from '../Store/store';
 const ProtocolFieldMixin = (Component) => class extends React.Component {
 	constructor (props){
 		console.log('[ProtocolFieldMixin] constructor ()', props);
