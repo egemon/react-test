@@ -4,45 +4,22 @@
 import React from 'react';
 import Player from '../Player/Player';
 import Metadata from '../Metadata/Metadata';
-
+import store from '../store';
 
 class Protocol extends React.Component {
 	constructor (){
 		super();
-		this.update = this.update.bind(this);
+		this.state = store.getState();
+		console.log('Protocol#constructor()', this.state);
 		this.show = this.show.bind(this);
-
-		this.state = {
-			metadata: {},
-			players: this.getEmptyPlayers()
-		};
-	}
-
-	getEmptyPlayers(){
-		let arr = new Array(10).fill();
-		return arr.map(()=>{
-			return {};
-		});
-	}
-
-	update(field, number, event) {
-		this.setState({
-			metadata: {},
-			players: this.state.players.map((player, playerNumber)=>{
-				if (playerNumber === number) {
-					player[field] = event.target.value;
-				}
-				return player;
-			})
-		})
 	}
 
 	show(){
-		console.log(this.state);
+		console.log(store.getState());
 	}
 
 	render(){
-		console.log('[Protocol] render()');
+		console.log('Protocol#render()');
 		var Players = this.state.players.map((player, i) => {
 			return <Player key={'player' + i} player={player} number={i}/>;
 		});
