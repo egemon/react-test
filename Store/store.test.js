@@ -1,24 +1,57 @@
-import store from '../Store/store';
-import assert from 'assert';
-describe('Store', () => {
-	describe('counter', () => {
-		it('should change player nick', () => {
-			store.dispatch({
-				type: 'PLAYER_CHANGE',
-				fieldName: 'nick',
-				fieldValue: 'Merlin',
-				number: 0
-			});
-			let state = {
-				metadata: {},
-				players: Array(10).fill().map(()=>{return {}})
-			};
+import store from "../Store/store";
+import config from "../config";
+import assert from "assert";
+describe("Store", () => {
 
-			state.players[0] = {
-				nick: 'Merlin'
-			};
+  describe("counter", () => {
+    let state;
+    beforeEach(() => {
+      state = JSON.parse(JSON.stringify(config.GAME));
+    });
 
-			assert.deepEqual(store.getState(), state);
-		});
-	});
+    afterEach(() => {
+      store.dispatch({
+        type: "CLEAR"
+      });
+    });
+
+    describe("change player fields", () => {
+      config.PLAYER_FIELDS.forEach((field) => {
+
+        it(`should change player's ${field}`, () => {
+          state.players[0] = {
+            [field]: 4
+          };
+          store.dispatch({
+            type: "PLAYER_CHANGE",
+            fieldName: field,
+            fieldValue: 4,
+            number: 0
+          });
+          assert.deepEqual(store.getState(), state);
+        });
+      });
+    });
+
+    describe("change metadata fields", () => {
+      config.METADATA_FIELDS.forEach((field) => {
+
+        it(`should change metadata's ${field}`, () => {
+          state.metadata = {
+            [field]: 4
+          };
+          store.dispatch({
+            type: "METADATA_CHANGE",
+            fieldName: field,
+            fieldValue: 4,
+            number: 0
+          });
+          assert.deepEqual(store.getState(), state);
+        });
+      });
+    });
+
+  });
+
+
 });

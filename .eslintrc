@@ -1,0 +1,8 @@
+{
+  "extends": "defaults/configurations/walmart/es6-react-test",
+  "globals": {
+    "describe": true,
+    "JSON": true
+  },
+  "no-mixed-spaces-and-tabs": 0
+}
