@@ -2,7 +2,7 @@
  * Created by ilukianov on 22.09.16.
  */
 import config from "../config";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 const changeField = (object, {fieldName, fieldValue}) => {
   return {
     ...object,
@@ -18,7 +18,7 @@ const metadata = (state = {...config.GAME.metadata}, action) => {
   return state;
 };
 
-const players = (state = (new Array(config.PLAYER_NUMBER)).fill(), action) => {
+const players = (state = [...config.GAME.players], action) => {
   switch (action.type) {
   case "PLAYER_CHANGE":
     state[action.number] = changeField(state[action.number], action);
@@ -26,16 +26,10 @@ const players = (state = (new Array(config.PLAYER_NUMBER)).fill(), action) => {
   return state;
 };
 
-const counter = (state = JSON.parse(JSON.stringify(config.GAME)), action) => {
-  switch (action.type) {
-  case "CLEAR":
-    return JSON.parse(JSON.stringify(config.GAME));
-  }
-  return {
-    metadata: metadata(state.metadata, action),
-    players: players(state.players, action),
-  };
-};
+const counter = combineReducers({
+	metadata,
+	players
+});
 const store = createStore(counter);
 
 export default store;

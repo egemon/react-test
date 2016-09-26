@@ -10,9 +10,6 @@ describe("Store", () => {
     });
 
     afterEach(() => {
-      store.dispatch({
-        type: "CLEAR"
-      });
     });
 
     describe("change player fields", () => {
@@ -43,8 +40,7 @@ describe("Store", () => {
           store.dispatch({
             type: "METADATA_CHANGE",
             fieldName: field,
-            fieldValue: 4,
-            number: 0
+            fieldValue: 4
           });
           assert.deepEqual(store.getState(), state);
         });
