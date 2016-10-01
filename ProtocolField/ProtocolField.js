@@ -2,25 +2,21 @@
  * Created by ilukianov on 22.09.16.
  */
 import React from "react";
-import store from "../Store/store";
+import changeMetadata from "../Reducer/stateCreators/changeMetadata";
+import changePlayer from "../Reducer/stateCreators/changePlayer";
 const protocolFieldMixin = (Component) => class extends React.Component {
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
   }
 
-  update(fieldName, event) {
-    const fieldValue = event.target.value;
+  update(name, event) {
+    const value = event.target.value;
 	  const {
 	  	type,
 		  number
 	  } = this.props;
-    store.dispatch({
-      type: `${type.toUpperCase()}_CHANGE`,
-      fieldName,
-      fieldValue,
-      number: number
-    });
+    store.dispatch(type === "metadata" ? changeMetadata(name, value) : changePlayer(name, value, number));
   }
 
   render() {

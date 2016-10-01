@@ -2,11 +2,11 @@
  * Created by ilukianov on 22.09.16.
  */
 import config from "../config";
-import { createStore, combineReducers } from "redux";
-const changeField = (object, {fieldName, fieldValue}) => {
+import { combineReducers } from "redux";
+const changeField = (object, {name, value}) => {
   return {
     ...object,
-    [fieldName]: fieldValue
+    [name]: value
   };
 };
 
@@ -26,10 +26,9 @@ const players = (state = [...config.GAME.players], action) => {
   return state;
 };
 
-const counter = combineReducers({
-	metadata,
-	players
+const reducer = combineReducers({
+  metadata,
+  players
 });
-const store = createStore(counter);
 
-export default store;
+export default reducer;

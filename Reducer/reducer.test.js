@@ -1,4 +1,4 @@
-import store from "../Store/store";
+import store from ".//store";
 import config from "../config";
 import assert from "assert";
 describe("Store", () => {
